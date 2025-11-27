@@ -1,5 +1,6 @@
-<<<<<<< HEAD
-=======
+/appDomain/
+/exceptions/
 /implementations/
->>>>>>> origin/main
+/manager/
 /unitTests/
+/utilities/
