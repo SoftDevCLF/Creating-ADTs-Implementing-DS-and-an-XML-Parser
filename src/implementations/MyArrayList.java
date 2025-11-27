@@ -142,7 +142,7 @@ public class MyArrayList<E> implements ListADT<E>
 			throw new NullPointerException();
 		}
 			
-		for (int i = 0; 1 < size; i++)
+		for (int i = 0; i < size; i++)
 		{
 			if (elements[i].equals(toRemove))
 			{
