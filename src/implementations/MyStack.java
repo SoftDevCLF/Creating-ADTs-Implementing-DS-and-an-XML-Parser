@@ -1,6 +1,8 @@
 package implementations;
 
 import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
+import java.util.Arrays;
 
 import utilities.Iterator;
 import utilities.StackADT;
@@ -62,13 +64,39 @@ public class MyStack<E> implements StackADT<E>
 	@Override
 	public Object[] toArray()
 	{
-		return list.toArray();
+		Object[] result = new Object[list.size()];
+
+	    int top = list.size() - 1;
+
+	    for (int i = 0; i < result.length; i++)
+	    {
+	        result[i] = list.get(top - i);
+	    }
+
+	    return result;
 	}
 	
 	@Override 
 	public E[] toArray(E[] holder) throws NullPointerException
 	{
-		return list.toArray(holder);
+		if (holder == null)
+	        throw new NullPointerException();
+
+	    int size = list.size();
+
+	    if (holder.length < size)
+	    {
+	        holder = Arrays.copyOf(holder, size);
+	    }
+
+	    int top = size - 1;
+
+	    for (int i = 0; i < size; i++)
+	    {
+	        holder[i] = list.get(top - i);
+	    }
+
+	    return holder;
 	}
 	
 	@Override
@@ -99,7 +127,29 @@ public class MyStack<E> implements StackADT<E>
 	@Override
 	public Iterator<E> iterator()
 	{
-		return list.iterator();
+		return new StackIterator();
+	}
+	
+	private class StackIterator implements Iterator<E>
+	{
+		private int current = list.size() - 1;
+		
+		@Override 
+		public boolean hasNext()
+		{
+			return current >= 0;
+		}
+		
+		@Override
+		public E next()
+		{
+			if (!hasNext())
+			{
+				throw new NoSuchElementException();
+			}
+			
+			return list.get(current--);
+		}
 	}
 	
 	@Override
