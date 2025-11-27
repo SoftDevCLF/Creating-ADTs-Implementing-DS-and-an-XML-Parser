@@ -14,7 +14,6 @@ public class MyArrayList<E> implements ListADT<E>
 	private static final int DEFAULT_CAPACITY = 10;
 	
 	
-	@SuppressWarnings("unchecked")
 	public MyArrayList()
 	{
 		elements = (E[]) new Object[DEFAULT_CAPACITY];
@@ -36,7 +35,6 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
 	public void clear()
 	{
 		elements = (E[]) new Object[DEFAULT_CAPACITY];
@@ -44,14 +42,17 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	@Override
-	public boolean add(int index, E toAdd)
-		throws NullPointerException, IndexOutOfBoundsException
+	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException
 	{
 		if (toAdd == null)
+		{
 			throw new NullPointerException("Cannot add null.");
+		}
 		
 		if (index < 0 || index > size)
+		{
 			throw new IndexOutOfBoundsException("Invalid index.");
+		}
 		
 		ensureCapacity();
 		
@@ -62,6 +63,7 @@ public class MyArrayList<E> implements ListADT<E>
 		
 		elements[index] = toAdd;
 		size++;
+		
 		return true;
 		
 	}
@@ -70,7 +72,9 @@ public class MyArrayList<E> implements ListADT<E>
 	public boolean add(E toAdd) throws NullPointerException
 	{
 		if (toAdd == null)
+		{
 			throw new NullPointerException("Cannot add null.");
+		}
 		
 		ensureCapacity();
 		
@@ -81,18 +85,20 @@ public class MyArrayList<E> implements ListADT<E>
 	}
 	
 	@Override
-	public boolean addAll(ListADT<? extends E> toAdd)
-		throws NullPointerException
+	public boolean addAll(ListADT<? extends E> toAdd) throws NullPointerException
 	{
 		if (toAdd == null)
+		{
 			throw new NullPointerException();
-		
+		}
+			
 		Iterator<? extends E> it = toAdd.iterator();
 		
 		while (it.hasNext())
 		{
 			add(it.next());
 		}
+		
 		return true;
 	}
 	
@@ -100,8 +106,10 @@ public class MyArrayList<E> implements ListADT<E>
 	public E get( int index ) throws IndexOutOfBoundsException 
 	{
 		if (index < 0 || index >= size)
+		{
 			throw new IndexOutOfBoundsException("Invalid index.");
-		
+		}
+			
 		return elements[index];
 	}
 	
@@ -109,7 +117,9 @@ public class MyArrayList<E> implements ListADT<E>
 	public E remove(int index) throws IndexOutOfBoundsException
 	{
 		if (index < 0 || index >= size)
+		{
 			throw new IndexOutOfBoundsException("Invalid index.");
+		}
 		
 		E removed = elements[index];
 		
@@ -128,8 +138,10 @@ public class MyArrayList<E> implements ListADT<E>
 	public E remove(E toRemove) throws NullPointerException
 	{
 		if (toRemove == null)
+		{
 			throw new NullPointerException();
-		
+		}
+			
 		for (int i = 0; 1 < size; i++)
 		{
 			if (elements[i].equals(toRemove))
@@ -145,10 +157,16 @@ public class MyArrayList<E> implements ListADT<E>
 	public E set(int index, E toChange) throws NullPointerException, IndexOutOfBoundsException
 	{
 		if (toChange == null)
+		{
 			throw new NullPointerException();
+		}
+			
 		
 		if (index < 0 || index >= size)
+		{
 			throw new IndexOutOfBoundsException();
+		}
+			
 		
 		E oldValue = elements[index];
 		elements[index] = toChange;
@@ -166,12 +184,16 @@ public class MyArrayList<E> implements ListADT<E>
 	public boolean contains(E toFind) throws NullPointerException
 	{
 		if (toFind == null)
+		{
 			throw new NullPointerException();
+		}
 		
 		for (int i = 0; i < size; i++)
 		{
 			if (elements[i].equals(toFind))
+			{
 				return true;
+			}
 		}
 		
 		return false;
@@ -181,8 +203,10 @@ public class MyArrayList<E> implements ListADT<E>
 	public E[] toArray(E[] toHold) throws NullPointerException
 	{
 		if (toHold == null)
+		{
 			throw new NullPointerException();
-		
+		}
+			
 		if (toHold.length < size)
 		{
 			return Arrays.copyOf(elements, size, (Class<? extends E[]>) toHold.getClass());
