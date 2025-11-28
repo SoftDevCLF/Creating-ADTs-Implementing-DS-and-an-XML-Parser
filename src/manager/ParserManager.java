@@ -1,5 +1,10 @@
 package manager;
 
+import java.io.IOException;
+
+import exceptions.EmptyQueueException;
+import manager.XMLParser;
+
 /**
  * Responsible for handling and validating command-line input for the XML
  * Parser application.
@@ -18,8 +23,10 @@ public class ParserManager
      * @param args the command-line arguments passed from the application
      *             entry point. {@code args[0]} is expected to be the name
      *             of the XML document to parse.
+	 * @throws EmptyQueueException 
+	 * @throws IOException 
      */
-	public ParserManager(String[] args)
+	public ParserManager(String[] args) throws IOException, EmptyQueueException
 	{
 		// Parsing arguments
 		// check there is enough arguments
@@ -33,10 +40,10 @@ public class ParserManager
 		filename = args[0];
 		
 		//Create a XMLParser object with filename as parameter
-		// XMLParser xmlParser = new XMLParser(filename);
+		 XMLParser xmlParser = new XMLParser();
 		
 		// Call the parse method to start parsing
-		// xmlParser.parse();
+		 xmlParser.parse(filename);
 	}
 
 }

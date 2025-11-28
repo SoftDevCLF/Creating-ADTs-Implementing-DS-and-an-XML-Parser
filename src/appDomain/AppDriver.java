@@ -1,5 +1,8 @@
 package appDomain;
 
+import java.io.IOException;
+
+import exceptions.EmptyQueueException;
 import manager.ParserManager;
 
 /**
@@ -23,8 +26,10 @@ public class AppDriver
      * @param args the command-line arguments supplied to the program.
      *             The first argument is expected to be the name of the
      *             XML file to be parsed.
+	 * @throws EmptyQueueException 
+	 * @throws IOException 
      */
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException, EmptyQueueException
 	{
 		new ParserManager(args);
 
