@@ -1,6 +1,20 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 /appDomain/
-/exceptions/
 /implementations/
 /manager/
 /unitTests/
 /utilities/
+=======
+=======
+/appDomain/
+/exceptions/
+>>>>>>> origin
+/implementations/
+/manager/
+/unitTests/
+<<<<<<< HEAD
+>>>>>>> origin
+=======
+/utilities/
+>>>>>>> origin
