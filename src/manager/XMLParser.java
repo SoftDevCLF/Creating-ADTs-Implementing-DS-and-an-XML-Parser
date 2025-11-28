@@ -12,6 +12,8 @@ public class XMLParser {
     private MyStack stack = new MyStack();
     private MyQueue errorQueue = new MyQueue();
     private MyQueue extrasQueue = new MyQueue();
+    
+    private boolean errorsFound = false;
 
     //Parser method
     public void parse(String filePath) throws FileNotFoundException, EmptyQueueException {
@@ -44,7 +46,7 @@ public class XMLParser {
             errorQueue.enqueue(stack.pop());
         cleanQueues();
         //If there are no errors print success message.
-        if (errorQueue.isEmpty() && extrasQueue.isEmpty()) {
+        if (!errorsFound) {
         	System.out.print("No parsing errors found. The XML file is constructed correctly!");
         }
     }
@@ -90,6 +92,7 @@ public class XMLParser {
         if (stack.isEmpty()) {
             extrasQueue.enqueue(tag);
             System.out.println("Error: </" + tag + "> has no opening tag");
+            errorsFound = true;
             return;
         }
         //Search stack for matching Start_Tag
@@ -112,11 +115,13 @@ public class XMLParser {
                 String misplaced = (String) temp.pop();
                 errorQueue.enqueue(misplaced);
                 System.out.println("Error: <" + misplaced + "> is not constructed correctly");
+                errorsFound = true;
             }
         } else {
             //Add E to extrasQueue
             extrasQueue.enqueue(tag);
             System.out.println("Error: </" + tag + "> does not match opening tag");
+            errorsFound = true;
         }
 
         while (!temp.isEmpty())
@@ -134,13 +139,16 @@ public class XMLParser {
             } else {
                 //Don’t match, dequeue from errorQ and report as error
                 System.out.println("Error: <" + errorQueue.dequeue() + "> not closed");
+                errorsFound = true;
             }
 
             while (!errorQueue.isEmpty())
                 System.out.println("Error: <" + errorQueue.dequeue() + "> not closed");
+            	errorsFound = true;
 
             while (!extrasQueue.isEmpty())
                 System.out.println("Error: </" + extrasQueue.dequeue() + "> has no opening tag");
+            	errorsFound = true;
         }
     }
 }

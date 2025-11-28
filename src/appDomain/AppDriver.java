@@ -29,10 +29,20 @@ public class AppDriver
 	 * @throws EmptyQueueException 
 	 * @throws IOException 
      */
-	public static void main(String[] args) throws IOException, EmptyQueueException
+	public static void main(String[] args)
 	{
-		new ParserManager(args);
+		if (args.length < 1) {
+            System.out.println("Error: No XML file supplied.");
+            System.out.println("Usage example:");
+            System.out.println("  java AppDriver res/sample1.xml");
+            return;
+        }
 
-	}
-
+        try {
+            new ParserManager(args);
+        } 
+        catch (IOException | EmptyQueueException e) {
+            e.printStackTrace();
+        }
+    }
 }
